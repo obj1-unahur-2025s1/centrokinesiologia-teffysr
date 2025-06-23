@@ -1,9 +1,87 @@
-import example.pepita
+import example.*
 
-describe "group of tests for pepita" {
+describe "Parte 1" {
+  const leonardo = new Paciente(edad=40,nivelDeFortaleza=20,nivelDeDolor=10)
+  const milena = new Paciente(edad=3,nivelDeFortaleza=50,nivelDeDolor=30)
+  const magneto = new Magneto()
+  const bicicleta = new Bicicleta()
+  const minitramp = new Minitramp()
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  test "Leonardo puede usar el magneto"{
+    assert.that(leonardo.puedeUsarAparato(magneto))
+  }
+  test "Leonardo puede usar la bicicleta"{
+    assert.that(leonardo.puedeUsarAparato(bicicleta))
+  }
+  test "Leonardo puede usar el minitramp"{
+    assert.that(leonardo.puedeUsarAparato(minitramp))
+  }
+  test "Milena puede usar el magneto"{
+    assert.that(milena.puedeUsarAparato(magneto))
+  }
+  test "Milena no puede usar la bicicleta"{
+    assert.notThat(milena.puedeUsarAparato(bicicleta))
+  }
+  test "Milena no puede usar el minitramp"{
+    assert.notThat(milena.puedeUsarAparato(minitramp))
   }
 
+  test "Leonardo usa el magneto 1 vez y su nivel de dolor baja a 9"{
+    leonardo.usaAparato(magneto)
+    assert.equals(9, leonardo.nivelDeDolor())
+  }
+
+  test "Milena usa el magneto 1 vez y su nivel de dolor baja a 27"{
+    milena.usaAparato(magneto)
+    assert.equals(27, milena.nivelDeDolor())
+  }
+
+  test "Leonardo usa la bicicleta 1 vez, su nivel de dolor baja a 6 y fortaleza sube a 23"{
+    leonardo.usaAparato(bicicleta)
+    assert.equals(6, leonardo.nivelDeDolor())
+    assert.equals(23, leonardo.nivelDeFortaleza())
+  }
+
+  test "Leonardo usa el minitramp 1 vez y su fortaleza sube a 24"{
+    leonardo.usaAparato(minitramp)
+    assert.equals(24, leonardo.nivelDeFortaleza())
+  }
+
+}
+
+describe "Rutinas"{
+  const leonardo = new Paciente(edad=40,nivelDeFortaleza=20,nivelDeDolor=10)
+  const milena = new Paciente(edad=3,nivelDeFortaleza=50,nivelDeDolor=30)
+  const magneto = new Magneto()
+  const bicicleta = new Bicicleta()
+  const minitramp = new Minitramp()
+
+  method initialize(){
+    leonardo.agregarAparatoARutina(bicicleta)
+    leonardo.agregarAparatoARutina(minitramp)
+    leonardo.agregarAparatoARutina(bicicleta)
+    leonardo.agregarAparatoARutina(magneto)
+    milena.agregarAparatoARutina(magneto)
+    milena.agregarAparatoARutina(bicicleta)
+  }
+
+  test "Leonardo puede hacer la rutina asignada"{
+    assert.that(leonardo.puedeHacerLaRutina())
+  }
+
+  test "Leonardo hace rutina 1 vez, su nivel de dolor baja a 1.8 y fortaleza sube a 30"{
+    leonardo.hacerRutina()
+    assert.equals(1.8, leonardo.nivelDeDolor())
+    assert.equals(30, leonardo.nivelDeFortaleza())
+  }
+
+  test "Milena no puede hacer la rutina asignada"{
+    assert.notThat(milena.puedeHacerLaRutina())
+  }
+
+  test "Quito 1 bici de leonardo"{
+    leonardo.quitarAparatoDeRutina(bicicleta)
+    leonardo.quitarAparatoDeRutina(bicicleta)
+    assert.equals([minitramp,magneto], leonardo.rutina())
+  }
 }

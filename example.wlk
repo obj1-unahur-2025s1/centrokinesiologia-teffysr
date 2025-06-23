@@ -2,6 +2,7 @@ class Paciente {
   var edad
   var property nivelDeFortaleza
   var property nivelDeDolor
+  const rutina = []
   method edad() = edad
 
   method puedeUsarAparato(aparato) = aparato.puedeSerUsadoPor(self)
@@ -9,6 +10,24 @@ class Paciente {
   method usaAparato(aparato) {
     aparato.usa(self)
   }
+
+  method agregarAparatoARutina(aparato){
+    rutina.add(aparato)
+  }
+
+  method quitarAparatoDeRutina(aparato){
+    if (rutina.contains(aparato)){
+      rutina.remove(aparato)
+    }
+  }
+
+  method puedeHacerLaRutina() = rutina.all({ a => self.puedeUsarAparato(a) })
+  
+  method hacerRutina(){
+    rutina.forEach({ a => self.usaAparato(a) })
+  }
+
+  method rutina() = rutina
 }
 
 class Aparato {
