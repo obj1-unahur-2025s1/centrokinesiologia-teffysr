@@ -85,3 +85,156 @@ describe "Rutinas"{
     assert.equals([minitramp,magneto], leonardo.rutina())
   }
 }
+
+describe "Parte 3 Pacientes"{
+  const nicolas = new PacienteResistente(edad=40,nivelDeFortaleza=20,nivelDeDolor=10)
+  const victoria = new PacienteCaprichoso(edad=30,nivelDeFortaleza=40,nivelDeDolor=10)
+  const julian = new PacienteCaprichoso(edad=20,nivelDeFortaleza=50,nivelDeDolor=54)
+  const zoe = new PacienteRapidaRecuperacion(edad=50,nivelDeFortaleza=40,nivelDeDolor=14)
+  
+  const magneto = new Magneto()
+  const magnetoVerde = new Magneto()
+  const bicicleta = new Bicicleta()
+  const bicicletaRoja = new Bicicleta()
+  const minitramp = new Minitramp()
+
+  method initialize(){
+    nicolas.agregarAparatoARutina(bicicleta)
+    nicolas.agregarAparatoARutina(minitramp)
+    nicolas.agregarAparatoARutina(bicicleta)
+    nicolas.agregarAparatoARutina(magneto)
+
+    victoria.agregarAparatoARutina(bicicleta)
+    victoria.agregarAparatoARutina(minitramp)
+    victoria.agregarAparatoARutina(bicicleta)
+    victoria.agregarAparatoARutina(magneto)
+
+    
+    bicicletaRoja.color("rojo") 
+    magnetoVerde.color("verde") 
+    julian.agregarAparatoARutina(bicicletaRoja)
+    julian.agregarAparatoARutina(magnetoVerde)
+    julian.agregarAparatoARutina(bicicleta)
+
+    zoe.agregarAparatoARutina(bicicleta)
+    zoe.agregarAparatoARutina(minitramp)
+    zoe.agregarAparatoARutina(bicicleta)
+    zoe.agregarAparatoARutina(magneto)
+    
+  }
+
+  test "Nicolas puede hacer la rutina que tiene asignada"{
+    assert.that(nicolas.puedeHacerLaRutina())
+  }
+
+  test "Nicolas hace 1 rutina, nivel de dolor baja a 1.8 y fortaleza sube a 34"{
+    nicolas.hacerRutina()
+    assert.equals(1.8, nicolas.nivelDeDolor())
+    assert.equals(34, nicolas.nivelDeFortaleza())
+  }
+
+  test "Victoria no puede hacer la rutina que tiene asignada"{
+    assert.notThat(victoria.puedeHacerLaRutina())
+  }
+
+  test "Julian puede hacer la rutina que tiene asignada"{
+    assert.that(julian.puedeHacerLaRutina())
+  }
+
+  test "Julian hace 1 rutina, nivel de dolor baja a 29.3 y fortaleza sube a 62"{
+    julian.hacerRutina()
+    assert.equals(29.3, julian.nivelDeDolor())
+    assert.equals(62, julian.nivelDeFortaleza())
+  }
+
+  test "Zoe puede hacer la rutina que tiene asignada"{
+    assert.that(zoe.puedeHacerLaRutina())
+  }
+
+  test "factorNivelDeDolor de Zoe pasa a 2, hace 1 rutina, nivel de dolor baja a 3.4 y fortaleza sube a 51"{
+    zoe.factorNivelDeDolor(2)
+    zoe.hacerRutina()
+    assert.equals(3.4, zoe.nivelDeDolor())
+    assert.equals(51, zoe.nivelDeFortaleza())
+  }
+}
+
+describe "Test del centro"{
+  const nicolas = new PacienteResistente(edad=40,nivelDeFortaleza=20,nivelDeDolor=10)
+  const victoria = new PacienteCaprichoso(edad=30,nivelDeFortaleza=40,nivelDeDolor=10)
+  const julian = new PacienteCaprichoso(edad=20,nivelDeFortaleza=50,nivelDeDolor=54)
+  const zoe = new PacienteRapidaRecuperacion(edad=50,nivelDeFortaleza=40,nivelDeDolor=14)
+  const milena = new Paciente(edad=3,nivelDeFortaleza=50,nivelDeDolor=30)
+
+  const magneto = new Magneto()
+  const magnetoVerde = new Magneto()
+  const bicicleta = new Bicicleta()
+  const bicicletaRoja = new Bicicleta()
+  const minitramp = new Minitramp()
+
+  method initialize(){
+    bicicletaRoja.color("rojo") 
+    magnetoVerde.color("verde")
+    magneto.puntosDeImantacion(50)
+    bicicleta.cantidadDePerdidasDeAceite(5)
+    bicicletaRoja.cantidadDesajustesDeTornillos(10)
+    centroDeKinesiologia.asignarPaciente(nicolas)
+    centroDeKinesiologia.asignarPaciente(victoria)
+    centroDeKinesiologia.asignarPaciente(julian)
+    centroDeKinesiologia.asignarPaciente(zoe)
+    centroDeKinesiologia.asignarPaciente(milena)
+    centroDeKinesiologia.agregarAparato(magneto)
+    centroDeKinesiologia.agregarAparato(magnetoVerde)
+    centroDeKinesiologia.agregarAparato(bicicleta)
+    centroDeKinesiologia.agregarAparato(bicicletaRoja)
+    centroDeKinesiologia.agregarAparato(minitramp)
+    centroDeKinesiologia.agregarAparato(bicicletaRoja)
+
+    milena.agregarAparatoARutina(magneto)
+    milena.agregarAparatoARutina(bicicleta)
+
+    nicolas.agregarAparatoARutina(bicicleta)
+    nicolas.agregarAparatoARutina(minitramp)
+    nicolas.agregarAparatoARutina(bicicleta)
+    nicolas.agregarAparatoARutina(magneto)
+
+    victoria.agregarAparatoARutina(bicicleta)
+    victoria.agregarAparatoARutina(minitramp)
+    victoria.agregarAparatoARutina(bicicleta)
+    victoria.agregarAparatoARutina(magneto)
+
+    julian.agregarAparatoARutina(bicicletaRoja)
+    julian.agregarAparatoARutina(magnetoVerde)
+    julian.agregarAparatoARutina(bicicleta)
+
+    zoe.agregarAparatoARutina(bicicleta)
+    zoe.agregarAparatoARutina(minitramp)
+    zoe.agregarAparatoARutina(bicicleta)
+    zoe.agregarAparatoARutina(magneto)
+  }
+
+  test "Colores de los aparatos"{
+    assert.equals(#{"blanco", "verde", "rojo"}, centroDeKinesiologia.coloresAparatos())
+  }
+
+  test "Pacientes menores de 8 anios"{
+    assert.equals(#{milena}, centroDeKinesiologia.pacientesMenoresDe8Anios())
+  }
+
+  test "Cantidad de pacientes que no pueden hacer su rutina"{
+    assert.equals(2, centroDeKinesiologia.pacientesQueNoPuedenHacerRutina())
+  }
+
+  test "Centro no esta en optimas condiciones"{
+    assert.notThat(centroDeKinesiologia.estaEnOptimasCondiciones())
+  }
+
+  test "Centro esta complicado"{
+    assert.that(centroDeKinesiologia.estaComplicado())
+  }
+
+  test "Centro hace mantenimiento y queda en optimas condiciones"{
+    centroDeKinesiologia.visitaDeTecnico()
+    assert.that(centroDeKinesiologia.estaEnOptimasCondiciones())
+  }
+}
